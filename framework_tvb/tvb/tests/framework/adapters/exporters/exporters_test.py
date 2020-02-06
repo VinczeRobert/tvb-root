@@ -38,6 +38,7 @@ import zipfile
 from contextlib import closing
 from tvb.basic.profile import TvbProfile
 from tvb.core.entities.model.simulator.simulator import SimulatorIndex
+from tvb.core.entities.model.model_burst import BurstConfiguration
 from tvb.core.entities.storage import dao
 from tvb.core.entities.file.files_helper import FilesHelper
 from tvb.core.entities.file.simulator.simulator_h5 import SimulatorH5
