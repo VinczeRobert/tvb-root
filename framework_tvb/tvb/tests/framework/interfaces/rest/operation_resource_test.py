@@ -111,7 +111,7 @@ class TestOperationResource(TransactionalTestCase):
         dummy_file = FileStorage(BytesIO(b"test"), 'test.txt')
         # Mock flask.request.files to return a dictionary
         request_mock = mocker.patch.object(flask, 'request')
-        request_mock.files = {'file': dummy_file}
+        request_mock.files = {'model_file': dummy_file}
 
         with pytest.raises(BadRequestException): self.launch_resource.post('', '', '')
 
@@ -120,7 +120,7 @@ class TestOperationResource(TransactionalTestCase):
         dummy_file = FileStorage(BytesIO(b"test"), 'test.h5')
         # Mock flask.request.files to return a dictionary
         request_mock = mocker.patch.object(flask, 'request')
-        request_mock.files = {'file': dummy_file}
+        request_mock.files = {'model_file': dummy_file}
 
         with pytest.raises(InvalidIdentifierException): self.launch_resource.post(project_gid, '', '')
 
@@ -130,7 +130,7 @@ class TestOperationResource(TransactionalTestCase):
         dummy_file = FileStorage(BytesIO(b"test"), 'test.h5')
         # Mock flask.request.files to return a dictionary
         request_mock = mocker.patch.object(flask, 'request')
-        request_mock.files = {'file': dummy_file}
+        request_mock.files = {'model_file': dummy_file}
 
         with pytest.raises(InvalidIdentifierException): self.launch_resource.post(self.test_project.gid,
                                                                                   inexistent_algorithm, '')
@@ -155,7 +155,7 @@ class TestOperationResource(TransactionalTestCase):
         # Mock flask.request.files to return a dictionary
         request_mock = mocker.patch.object(flask, 'request')
         fp = open(view_model_h5_path, 'rb')
-        request_mock.files = {'file': FileStorage(fp, os.path.basename(view_model_h5_path))}
+        request_mock.files = {'model_file': FileStorage(fp, os.path.basename(view_model_h5_path))}
 
         # Mock launch_operation() call
         mocker.patch.object(OperationService, 'launch_operation')

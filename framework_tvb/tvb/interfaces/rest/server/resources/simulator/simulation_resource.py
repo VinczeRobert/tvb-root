@@ -56,7 +56,7 @@ class FireSimulationResource(RestResource):
         """
         :start a simulation using a project id and a zip archive with the simulator data serialized
         """
-        file = self.extract_file_from_request(FilesHelper.TVB_ZIP_FILE_EXTENSION)
+        file = self.extract_file_from_request(file_extension=FilesHelper.TVB_ZIP_FILE_EXTENSION)
         destination_folder = RestResource.get_destination_folder()
         zip_path = RestResource.save_temporary_file(file, destination_folder)
 
