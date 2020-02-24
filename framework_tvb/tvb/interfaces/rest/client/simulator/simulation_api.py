@@ -58,4 +58,4 @@ class SimulationApi(MainApi):
         file_obj = open(zip_folder_path, 'rb')
         return requests.post(self.build_request_url(RestLink.FIRE_SIMULATION.compute_url(True, {
             LinkPlaceholder.PROJECT_GID.value: project_gid
-        })), files={"file": ("SimulationData.zip", file_obj)})
+        })), files={"model_file": ("SimulationData.zip", file_obj)})

@@ -30,6 +30,7 @@
 
 import os
 import requests
+from tvb.core.adapters.abcuploader import ABCUploader
 from tvb.core.neocom import h5
 from tvb.core.neotraits.h5 import ViewModelH5
 from tvb.interfaces.rest.client.client_decorators import handle_response
@@ -64,10 +65,13 @@ class OperationApi(MainApi):
         model_file_obj = open(h5_file_path, 'rb')
         files = {"model_file": (os.path.basename(h5_file_path), model_file_obj)}
 
-        for key in algorithm_class().get_form_class().get_upload_information().keys():
-            path = getattr(view_model, key)
-            data_file_obj = open(path, 'rb')
-            files[key] = (os.path.basename(path), data_file_obj)
+        algorithm = algorithm_class()
+
+        if isinstance(algorithm, ABCUploader):
+            for key in algorithm.get_form_class().get_upload_information().keys():
+                path = getattr(view_model, key)
+                data_file_obj = open(path, 'rb')
+                files[key] = (os.path.basename(path), data_file_obj)
 
         return requests.post(self.build_request_url(RestLink.LAUNCH_OPERATION.compute_url(True, {
             LinkPlaceholder.PROJECT_GID.value: project_gid,
